@@ -1,285 +1,88 @@
+## HMM search
+## Lauren Yancy
+## 13 March 2020
+
+import argparse
 
 
-seq_filename = "Hinfluenzae.txt"
-total_length = 0
+def main():
 
-nucleotide_Dictionary = {} # create an empty dictionary
-seq_file = open(seq_filename, "r")
+    print('foo')
 
-for filename_line in seq_file:
-    line = filename_line .rstrip("\r\n")
-    #print(line)
-    #print(len(line))
-    length = len(line)
-    #print(length)
-    # works but low?
+    # parser = argparse.ArgumentParser(description='A Hidden Markov Model based program to find transmembrane sequence')
+    # parser.add_argument('-sol', dest='solubleSequence', required=True, help='A file containing the soluble sequence')
+    # parser.add_argument('-trans', dest='transmembraneSequence', required=True, help='A file containing the transmembrane sequence')
+    # parser.add_argument('-state', dest='stateSequence', required=True, help='A file containing the state sequence')
+    # parser.add_argument("-o", dest='output_file', help='output file')
 
-    for nuc in line:
-        if nuc in nucleotide_Dictionary:
-            nucleotide_Dictionary[nuc] += 1
-            #print(nucleotide_Dictionary[nuc])
-            # Prints occurrence number
+    # args = parser.parse_args()
+
+    # print(args)
+
+    # print('error check')
+
+def solubleSequenceFrequency(solubleSequence):
+    # open sequence file
+    file = open('solubleSequences', 'r')
+
+    solubleFrquency = 0
+    ## Create a dictionary of all amino acids in sequence
+
+    solubleAminoAcidDictionary = {}
+
+    for item in solubleSequence:
+
+        aminoAcid = item
+        # check to see if aminoAcid is in dictionary
+        # add if not and set count to 0
+        if solubleAminoAcidDictionary.has_key(aminoAcid):
+
+            # use key to update value by 1
+            solubleAminoAcidDictionary.update(aminoAcid=(solubleAminoAcidDictionary.get(aminoAcid)+1))
         else:
-            # Assigns a key with value 1
-            nucleotide_Dictionary[nuc] = 1
 
-    total_length += length
+            # Add new Amino Acid and set value to 1
+            solubleAminoAcidDictionary.append(aminoAcid:1)
 
 
-print("this is the length:")
-print(total_length)
-print(nucleotide_Dictionary)
 
-for n in nucleotide_Dictionary.keys():
-    fraction = 100.0 * nucleotide_Dictionary[n] / total_length
-    print("In the file {0}, the nucleotide {1} occurs {2} times, or {3} %".format(seq_filename, n, nucleotide_Dictionary[n], fraction))
-seq_file.close()
 
-seq_filename = "Taquaticus.txt"
-total_length = 0
+    file.close()
 
-nucleotide_Dictionary = {} # create an empty dictionary
-seq_file = open(seq_filename, "r")
+    return solubleFrequency
 
-for filename_line in seq_file:
-    line = filename_line .rstrip("\r\n")
-    #print(line)
-    #print(len(line))
-    length = len(line)
-    #print(length)
-    # works but low?
 
-    for nuc in line:
-        if nuc in nucleotide_Dictionary:
-            nucleotide_Dictionary[nuc] += 1
-            #print(nucleotide_Dictionary[nuc])
-            # Prints occurrence number
-        else:
-            # Assigns a key with value 1
-            nucleotide_Dictionary[nuc] = 1
 
-    total_length += length
+    #aminoFrequency()
 
 
-print("this is the length:")
-print(total_length)
-print(nucleotide_Dictionary)
 
-for n in nucleotide_Dictionary.keys():
-    fraction = 100.0 * nucleotide_Dictionary[n] / total_length
-    print("In the file {0}, the nucleotide {1} occurs {2} times, or {3} %".format(seq_filename, n, nucleotide_Dictionary[n], fraction))
 
-seq_file.close()
 
+## Calculate frequencies of AA for Sol and trans membrane sequence (PS1)
+##
 
-#### Dinucleotide
-seq_filename = "Hinfluenzae.txt"
-total_length = 0
-dinucleotide_list = []
-dinucleotide_Dictionary = {} # create an empty dictionary
-seq_file = open(seq_filename, "r")
 
-for filename_line in seq_file:
-    line = filename_line .rstrip("\r\n")
-    length = len(line)
+def aminoFrequency():
 
-    for nuc in line:
-        dinucleotide_list.append(nuc)
-        #print(dinucleotide_list)
+    count = 0
 
 
-for i in range(len(dinucleotide_list)-1):
+    return count
 
-    first_nucleotide = dinucleotide_list[i]
-    second_nucleotide = dinucleotide_list[i + 1]
-    dinucleotide = first_nucleotide + second_nucleotide
-    #print(dinucleotide)
 
-    if dinucleotide in dinucleotide_Dictionary:
-        dinucleotide_Dictionary[dinucleotide] += 1
-    else:
-        # Assigns a key with value 1
-        dinucleotide_Dictionary[dinucleotide] = 1
+## Calculate beginning sequence in state
 
-    total_length += 1
+## Calculate transition probabilities
 
-print("this is the length:")
-print(total_length)
-print(dinucleotide_Dictionary)
 
-for n in dinucleotide_Dictionary.keys():
-    fraction = 100.0 * dinucleotide_Dictionary[n] / total_length
-    print("In the file {0}, the dinucleotide {1} occurs {2} times, or {3} %".format(seq_filename, n, dinucleotide_Dictionary[n], fraction))
 
+## Calculate the number of occurrences of each digram in the state file. (e.g., SS or TT or ST or TS. A
+## digram is a 2 character string. In general, a string of n characters is an n-gram.) You can use your other
+## program from problem set#1 for this. From the numbers of observations, you should be able to
+## construct the transition probability matrix for the HMM.
 
-#### Dinucleotide
-seq_filename = "Taquaticus.txt"
-total_length = 0
-dinucleotide_list = []
-dinucleotide_Dictionary = {} # create an empty dictionary
-seq_file = open(seq_filename, "r")
 
-for filename_line in seq_file:
-    line = filename_line .rstrip("\r\n")
-    length = len(line)
-
-    for nuc in line:
-        dinucleotide_list.append(nuc)
-        #print(dinucleotide_list)
-
-
-for i in range(len(dinucleotide_list)-1):
-
-    first_nucleotide = dinucleotide_list[i]
-    second_nucleotide = dinucleotide_list[i + 1]
-    dinucleotide = first_nucleotide + second_nucleotide
-    #print(dinucleotide)
-
-    if dinucleotide in dinucleotide_Dictionary:
-        dinucleotide_Dictionary[dinucleotide] += 1
-    else:
-        # Assigns a key with value 1
-        dinucleotide_Dictionary[dinucleotide] = 1
-
-    total_length += 1
-
-print("this is the length:")
-print(total_length)
-print(dinucleotide_Dictionary)
-
-for n in dinucleotide_Dictionary.keys():
-    fraction = 100.0 * dinucleotide_Dictionary[n] / total_length
-    print("In the file {0}, the dinucleotide {1} occurs {2} times, or {3} %".format(seq_filename, n, dinucleotide_Dictionary[n], fraction))
-
-seq_file.close()
-
-
-###
-
-#### Dinucleotide
-seq_filename = "MysteryGene1.txt"
-total_length = 0
-dinucleotide_list = []
-dinucleotide_Dictionary = {} # create an empty dictionary
-seq_file = open(seq_filename, "r")
-
-for filename_line in seq_file:
-    line = filename_line .rstrip("\r\n")
-    length = len(line)
-
-    for nuc in line:
-        dinucleotide_list.append(nuc)
-        #print(dinucleotide_list)
-
-
-for i in range(len(dinucleotide_list)-1):
-
-    first_nucleotide = dinucleotide_list[i]
-    second_nucleotide = dinucleotide_list[i + 1]
-    dinucleotide = first_nucleotide + second_nucleotide
-    #print(dinucleotide)
-
-    if dinucleotide in dinucleotide_Dictionary:
-        dinucleotide_Dictionary[dinucleotide] += 1
-    else:
-        # Assigns a key with value 1
-        dinucleotide_Dictionary[dinucleotide] = 1
-
-    total_length += 1
-
-print("this is the length:")
-print(total_length)
-print(dinucleotide_Dictionary)
-
-for n in dinucleotide_Dictionary.keys():
-    fraction = 100.0 * dinucleotide_Dictionary[n] / total_length
-    print("In the file {0}, the dinucleotide {1} occurs {2} times, or {3} %".format(seq_filename, n, dinucleotide_Dictionary[n], fraction))
-
-seq_file.close()
-
-#####
-#### Dinucleotide
-seq_filename = "MysteryGene2.txt"
-total_length = 0
-dinucleotide_list = []
-dinucleotide_Dictionary = {} # create an empty dictionary
-seq_file = open(seq_filename, "r")
-
-for filename_line in seq_file:
-    line = filename_line .rstrip("\r\n")
-    length = len(line)
-
-    for nuc in line:
-        dinucleotide_list.append(nuc)
-        #print(dinucleotide_list)
-
-
-for i in range(len(dinucleotide_list)-1):
-
-    first_nucleotide = dinucleotide_list[i]
-    second_nucleotide = dinucleotide_list[i + 1]
-    dinucleotide = first_nucleotide + second_nucleotide
-    #print(dinucleotide)
-
-    if dinucleotide in dinucleotide_Dictionary:
-        dinucleotide_Dictionary[dinucleotide] += 1
-    else:
-        # Assigns a key with value 1
-        dinucleotide_Dictionary[dinucleotide] = 1
-
-    total_length += 1
-
-print("this is the length:")
-print(total_length)
-print(dinucleotide_Dictionary)
-
-for n in dinucleotide_Dictionary.keys():
-    fraction = 100.0 * dinucleotide_Dictionary[n] / total_length
-    print("In the file {0}, the dinucleotide {1} occurs {2} times, or {3} %".format(seq_filename, n, dinucleotide_Dictionary[n], fraction))
-
-seq_file.close()
-
-#####
-
-
-#### Dinucleotide
-seq_filename = "MysteryGene3.txt"
-total_length = 0
-dinucleotide_list = []
-dinucleotide_Dictionary = {} # create an empty dictionary
-seq_file = open(seq_filename, "r")
-
-for filename_line in seq_file:
-    line = filename_line .rstrip("\r\n")
-    length = len(line)
-
-    for nuc in line:
-        dinucleotide_list.append(nuc)
-        #print(dinucleotide_list)
-
-
-for i in range(len(dinucleotide_list)-1):
-
-    first_nucleotide = dinucleotide_list[i]
-    second_nucleotide = dinucleotide_list[i + 1]
-    dinucleotide = first_nucleotide + second_nucleotide
-    #print(dinucleotide)
-
-    if dinucleotide in dinucleotide_Dictionary:
-        dinucleotide_Dictionary[dinucleotide] += 1
-    else:
-        # Assigns a key with value 1
-        dinucleotide_Dictionary[dinucleotide] = 1
-
-    total_length += 1
-
-print("this is the length:")
-print(total_length)
-print(dinucleotide_Dictionary)
-
-for n in dinucleotide_Dictionary.keys():
-    fraction = 100.0 * dinucleotide_Dictionary[n] / total_length
-    print("In the file {0}, the dinucleotide {1} occurs {2} times, or {3} %".format(seq_filename, n, dinucleotide_Dictionary[n], fraction))
-
-seq_file.close()
+if __name__ == '__main__' :
+    main()
 
